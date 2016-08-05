@@ -1,19 +1,21 @@
 var Person = Backbone.Model.extend({
 	defaults: {
-		name: 'Guest User',
+		name: 'Guest Worker',
 		age: 23,
 		occupation: 'worker'
 	}
 });
 
 var PersonView = Backbone.View.extend({
-   tagName: 'li',
+	tagName: 'li',
 
-   initialize: function(){
-     this.render();
-   },
+	my_template: _.template("<strong><%= name %></strong> (<%= age %>) - <%= occupation %>"),
 
-   render: function(){
-     this.$el.html( this.model.get('name') + ' (' + this.model.get('age') + ') - ' + this.model.get('occupation') );
-  }
+	initialize: function(){
+		this.render();
+	},
+
+	render: function(){
+		this.$el.html( this.my_template(this.model.toJSON()));
+	}
 });
